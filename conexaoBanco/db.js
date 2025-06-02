@@ -25,19 +25,3 @@ async function connect() {
   }
 
   connect();
-
-  // Função para inserir clientes no banco de dados. Essa função recebe informações vindos da rota POST.
-async function insertCustomer(customer) {
-  // Estabelecer conexão com o banco de dados (a função "connect" deve ser definida em outro lugar)
-  const client = await connect();
-  // Prepara a query SQL de inserção com parâmetros para evitar SQL Injection
-  const sql = "INSERT INTO client (cpf, nome, email, idade, profissao) VALUES ($1, $2, $3, $4, $5)";
-  // Cria um array com os valores que serão injetados na query, na ordem correta
-  const values = [customer.cpf, customer.nome, customer.email, customer.idade, customer.profissao];
-  // Executa a query no banco de dados para inserir o cliente
-  await client.query(sql, values);
-  }
-  // Exporta a função para que ela possa ser usada em outras partes do backend
-  module.exports = {
-  insertCustomer
-  }
